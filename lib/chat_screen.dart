@@ -1,6 +1,6 @@
-import 'package:clone_app/credentials/login_page.dart';
+
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ChatScreen extends StatelessWidget {
   final String name;
@@ -12,12 +12,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
-        actions: [
-          IconButton(
-            onPressed: () {signout(context);},
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ],
+        
       ),
       body: SafeArea(
         child: Column(
@@ -32,13 +27,5 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  signout(BuildContext context) async{
-    final _sharedprefs = await SharedPreferences.getInstance();
-      await _sharedprefs.clear();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context1) => LoginPage()),
-        (route) => true);
   }
 }

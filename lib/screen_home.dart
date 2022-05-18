@@ -1,10 +1,13 @@
 
 
 import 'package:clone_app/favourites.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'chat_screen.dart';
 
 import 'package:flutter/material.dart';
+
+import 'credentials/login_page.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({Key? key}) : super(key: key);
@@ -14,6 +17,12 @@ class ScreenHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('whatsapp'),
+        actions: [
+          IconButton(
+            onPressed: () {signout(context);},
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -61,5 +70,13 @@ class ScreenHome extends StatelessWidget {
         itemCount: 10,
       )),
     );
+  }
+  
+  signout(BuildContext context) async{
+    final _sharedprefs = await SharedPreferences.getInstance();
+      await _sharedprefs.clear();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context1) => LoginPage()),
+        (route) => true);
   }
 }
